@@ -62,20 +62,9 @@ class databaseFillerModel extends Model
                         year = '{$doc['year']}'                         
                     WHERE id = '{$doc['id']}'";
                     $resultQuery = $mysqli->query($insertQuery);
-                    if ($resultQuery === false) {
-                        echo "<pre>";
-                        print_r($insertQuery);
-                        echo "</pre>";
-                        throw new \Exception('Ошибка в SQL-запросе!');
-                    }
                     $deleteGenresByFilmQuery ="DELETE FROM films_genres_table WHERE filmId = '{$doc['id']}'";
                     $resultDeleteQuery = $mysqli->query($deleteGenresByFilmQuery);
-                    if ($resultDeleteQuery === false) {
-                        echo "<pre>";
-                        print_r($deleteGenresByFilmQuery);
-                        echo "</pre>";
-                        throw new \Exception('Ошибка в SQL-запросе!');
-                    }
+
                     foreach ($doc['genres'] as $genre)
                     {
                         $genreId = array_search($genre['name'],$filmGenresDatabaseData);
@@ -85,12 +74,6 @@ class databaseFillerModel extends Model
                     VALUES 
                     ('{$doc['id']}', '{$genreId}')";
                         $resultGenresQuery = $mysqli->query($insertFilmGenresQuery);
-                        if ($resultGenresQuery === false) {
-                            echo "<pre>";
-                            print_r($insertFilmGenresQuery);
-                            echo "</pre>";
-                            throw new \Exception('Ошибка в SQL-запросе!');
-                        }
                     }
                 }
             }else{

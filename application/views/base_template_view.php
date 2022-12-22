@@ -9,7 +9,10 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
         function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <!-- //for-mobile-apps -->
+<!--    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LesmJojAAAAAEUDwP8ivAXgsoyrctYYwkwCh-o4"></script>
+-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <!-- pop-up -->
     <link href="/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
@@ -132,11 +135,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--/banner-section-->
     <!--//main-header-->
     <!--/banner-bottom-->
-    <?echo "<pre>";
-    echo '!!!!!!!!!!';
-    print_r($_SESSION);
-    //print_r(!empty($_SESSION['USER']));
-    echo "</pre>";?>
     <div class="w3_agilits_banner_bootm">
         <div class="w3_agilits_inner_bottom">
             <div class="col-md-6 wthree_agile_login">
@@ -144,7 +142,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 009 455 4088</li>
                     <?if(!empty($_SESSION['USER'])):?>
                         <li><a href="/registration/account" class="login" >Аккаунт</a></li>
-                        <li><a href="/" class="login" onclick="<?unset($_SESSION['USER'])?>">Выйти из аккаунта</a></li>
+                        <li><a href="/registration/deauthorize" class="login" >Выйти из аккаунта</a></li>
                     <?else:?>
                         <li><a href="#" class="login"  data-toggle="modal" data-target="#myModal4">Войти в аккаунт</a></li>
                         <li><a href="#" class="login reg" data-toggle="modal" data-target="#myModal5">Зарегестрироваться</a></li>
@@ -164,22 +162,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4>Login</h4>
                     <div class="login-form">
-                        <form action="/registration/authorize" method="post">
+                        <form action="/registration/authorize" id="formLogin" method="post">
                             <input type="email" name="authorize[email]" placeholder="E-mail" required="">
                             <input type="password" name="authorize[password]" placeholder="Password" required="">
                             <div class="tp">
                                 <input type="submit" value="LOGIN NOW">
                             </div>
                             <div class="forgot-grid">
-                                <div class="log-check">
+                                <!--<div class="log-check">
                                     <label class="checkbox"><input type="checkbox" name="authorize[checkbox remember me]">Remember me</label>
-                                </div>
+                                </div>-->
                                 <div class="forgot">
                                     <a href="#" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-
+                            <div class="g-recaptcha" id="recaptchaLogin" data-sitekey="6LfN95sjAAAAAPvrwP1yvDLtCP0AumUPheUKJ8Fa"></div>
                         </form>
                     </div>
                 </div>
@@ -197,7 +195,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4>Register</h4>
                     <div class="login-form">
-                        <form action="/registration/register" method="post">
+                        <form id="formRegister" action="/registration/register" method="post">
                             <input type="text" name="register[name]" placeholder="Name" required="">
                             <input type="email" name="register[email]" placeholder="E-mail" required="">
                             <input type="password" name="register[password]" id="password" placeholder="Password" required="">
@@ -210,6 +208,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="tp">
                                 <input type="submit" id="submit" value="REGISTER NOW">
                             </div>
+                            <div class="g-recaptcha" id="recaptchaRegister" data-sitekey="6LfN95sjAAAAAPvrwP1yvDLtCP0AumUPheUKJ8Fa"></div>
                         </form>
                     </div>
                 </div>
@@ -527,14 +526,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 </script>-->
 <!--end-smooth-scrolling-->
+    <!--<script>
+        grecaptcha.enterprise.ready(function() {
+            grecaptcha.enterprise.execute('6LesmJojAAAAAEUDwP8ivAXgsoyrctYYwkwCh-o4', {action: '/registration/authorize'}).then(function(token) {
+            ...
+            });
+        });
+    </script>-->
+    <script>
+        function onSubmit(){
+
+        }
+    </script>
     <script>
         var inputConfirm = document.getElementById('confirmPassword');
         var inputMainPassword = document.getElementById('password');
 
         inputConfirm.addEventListener('input', function()
         {
-            console.log(inputConfirm.value);
-            console.log(inputMainPassword.value);
             if (inputConfirm.value != inputMainPassword.value){
                 inputConfirm.style.outline = "thick solid #ff0000";
                 document.getElementById('submit').disabled = true;
@@ -545,6 +554,86 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
     </script>
 <script src="/js/bootstrap.js"></script>
+    <script>
+        $(document).ready(function() {
+            $( "#formLogin" ).submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+
+                    success: function(data) {
+                        const obj = JSON.parse(data);
+                        var marker = 0;
+                        $.each(obj.errors, function(index, element) {
+                            if (index == 'captchaError' && element == 'true')
+                            {
+                                alert('Проверьте капчу');
+                                var c = $('.g-recaptcha').length;
+                                for (var i = 0; i < c; i++)
+                                    grecaptcha.reset(i);
+                                marker = 1;
+                            } else if(index == 'logPassError' && element == 'true'){
+                                alert('Неверный логин или пароль');
+                                var c = $('.g-recaptcha').length;
+                                for (var i = 0; i < c; i++)
+                                    grecaptcha.reset(i);
+                                marker = 1;
+                            }
+                        });
+                        if (marker == 0){
+                            location.reload();
+                        }
+                    },
+                });
+            });
+            $( "#formRegister" ).submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+
+                    success: function(data) {
+                        const obj = JSON.parse(data);
+                        var marker = 0;
+                        $.each(obj.errors, function(index, element) {
+                            if (index == 'captchaError' && element == 'true')
+                            {
+                                alert('Проверьте капчу');
+                                var c = $('.g-recaptcha').length;
+                                for (var i = 0; i < c; i++)
+                                    grecaptcha.reset(i);
+                                marker = 1;
+                            } else if(index == 'logPassError' && element == 'true'){
+                                alert('Неверный логин или пароль');
+                                var c = $('.g-recaptcha').length;
+                                for (var i = 0; i < c; i++)
+                                    grecaptcha.reset(i);
+                                marker = 1;
+                            }else if(index == 'emailError' && element == 'true'){
+                                alert('Пользователь с таким Email уже зарегестрирован');
+                                var c = $('.g-recaptcha').length;
+                                for (var i = 0; i < c; i++)
+                                    grecaptcha.reset(i);
+                                marker = 1;
+                            }
+                        });
+                        if (marker == 0){
+                            location.reload();
+                        }
+                    },
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

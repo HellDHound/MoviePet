@@ -1,4 +1,5 @@
 <?
+//session_start();
 
 use core\View;
 include 'C:\OSPanel\domains\Pet-Test\application\models\films_data_model.php';

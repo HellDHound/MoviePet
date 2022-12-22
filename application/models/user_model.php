@@ -11,13 +11,15 @@ class userModel extends Model{
                 VALUES 
                 ('{$post['name']}','{$post['email']}','{$passwordHash}')";
             $resultQuery = $mysqli->query($insertQuery);
-            if ($resultQuery !== false){
-                echo "<script>alert('Вы успешно зарегестрированы и теперь можете войти в систему'); 
-                    location.href='" . $_SERVER['HTTP_REFERER'] . "';</script>";
-            }
+            $this->json = array(
+                "errors" => array ("captchaError" => 'false',"logPassError" => 'false',"emailError" => 'false')
+            );
+            echo json_encode($this->json, ENT_NOQUOTES);
         }else{
-            echo '<script>alert("Пользователь с таким email уже зарегестрирован")</script>';
-        }
+            $this->json = array(
+                "errors" => array ("captchaError" => 'false',"logPassError" => 'false',"emailError" => 'true')
+            );
+            echo json_encode($this->json, ENT_NOQUOTES);}
     }
     public function authorizeUser($post){
         $checkUser = $this->getUserByEmail($post['email'], ['id','email','username','password', 'usergroup']);
@@ -25,14 +27,27 @@ class userModel extends Model{
             $_SESSION['USER']['email'] = $checkUser['email'];
             $_SESSION['USER']['name'] = $checkUser['username'];
             $_SESSION['USER']['usergroup'] = $checkUser['usergroup'];
-            echo "<pre>";
+            //echo ('{"errors": ["captchaError": false, "logPassError": false]}');
+            $this->json = array(
+                "errors" => array ("captchaError" => 'false',"logPassError" => 'false')
+            );
+            echo json_encode($this->json, ENT_NOQUOTES);
+            /*echo "<pre>";
             print_r($_SESSION);
             echo "</pre>";
-/*            echo "<script>alert('Вы успешно авторизованы');
+            echo "<script>alert('Вы успешно авторизованы');
                     location.href='" . $_SERVER['HTTP_ORIGIN'] . "';</script>";*/
         } else{
-            echo '<script>alert("Введен неверный логин или пароль")</script>';
+            $this->json = array(
+                "errors" => array ("captchaError" => 'false',"logPassError" => 'true')
+            );
+            echo json_encode($this->json, ENT_NOQUOTES);/*            echo json_encode('<script>alert("Введен неверный логин или пароль")</script>');*/
+/*            echo '<script>alert("Введен неверный логин или пароль")</script>';*/
         }
+    }
+    public function deauthorizeUser(){
+        unset($_SESSION['USER']);
+        echo "<script>location.href='" . $_SERVER['HTTP_REFERER'] . "';</script>";
     }
     public function changeUserPassword($post){
         echo "<pre>";
@@ -48,11 +63,12 @@ class userModel extends Model{
         if (!empty($checkUser) && password_verify($post['password'],$checkUser['password'])){
             $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
             $passwordHash = password_hash($post['newPassword'], PASSWORD_DEFAULT);
-            $insertQuery = "UPDATE user_movie_table SET password = '{$passwordHash}', WHERE email = '{$_SESSION['USER']['email']}'";
+            $insertQuery = "UPDATE user_movie_table SET password = '{$passwordHash}' WHERE email = '{$_SESSION['USER']['email']}'";
+            $resultQuery = $mysqli->query($insertQuery);
             echo "<script>alert('Ваш пароль успешно изменен');
                     location.href='" . $_SERVER['HTTP_ORIGIN'] . "';</script>";
         } else{
-            /*echo '<script>alert("Старый пароль указан неверно")</script>';*/
+            echo '<script>alert("Старый пароль указан неверно")</script>';
         }
     }
     public function getUserByEmail($email, $selectedFields = 'id'){

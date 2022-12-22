@@ -1,4 +1,5 @@
 <?
+//session_start();
 
 //use FilmsDataModel;
 use core\View;
