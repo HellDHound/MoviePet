@@ -12,10 +12,14 @@ class Controller_Main extends Controller
     }
     function action_index()
     {
+        $userFavoriteList = $this->model->getFilmsByUserId(['userId','filmId']);
         $data['genres']  = $this->model->genresListGetFromDatabase();
         $data['filmsByRatingKp'] = $this->model->getFilmsByRatingKp(100, 'desc');
+        $data['filmsByRatingKp'] = $this->model->checkUserFilms($userFavoriteList, $data['filmsByRatingKp']);
         $data['filmsByRatingImdb'] = $this->model->getFilmsByRatingImdb(100, 'desc');
+        $data['filmsByRatingImdb'] = $this->model->checkUserFilms($userFavoriteList, $data['filmsByRatingImdb']);
         $data['filmsByYear'] = $this->model->getFilmsByYear(100, 'desc');
+        $data['filmsByYear'] = $this->model->checkUserFilms($userFavoriteList, $data['filmsByYear']);
 
         $this->view->generate('main_page_view.php', 'base_template_view.php', $data);
 

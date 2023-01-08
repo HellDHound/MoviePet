@@ -9,8 +9,6 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
         function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LesmJojAAAAAEUDwP8ivAXgsoyrctYYwkwCh-o4"></script>
--->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
@@ -64,42 +62,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         </li>
                                     </ul>
                                 </li>
-<!--                                <li><a href="series.html">tv - series</a></li>
-                                <li><a href="news.html">news</a></li>-->
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Country <b class="caret"></b></a>
-                                    <ul class="dropdown-menu multi-column columns-3">
-                                        <li>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <li><a href="genre.html">Asia</a></li>
-                                                    <li><a href="genre.html">France</a></li>
-                                                    <li><a href="genre.html">Taiwan</a></li>
-                                                    <li><a href="genre.html">United States</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <li><a href="genre.html">China</a></li>
-                                                    <li><a href="genre.html">HongCong</a></li>
-                                                    <li><a href="genre.html">Japan</a></li>
-                                                    <li><a href="genre.html">Thailand</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <ul class="multi-column-dropdown">
-                                                    <li><a href="genre.html">Euro</a></li>
-                                                    <li><a href="genre.html">India</a></li>
-                                                    <li><a href="genre.html">Korea</a></li>
-                                                    <li><a href="genre.html">United Kingdom</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
-                                    </ul>
-                                </li>
-<!--                                <li><a href="list.html">A - z list</a></li>
-                                <li><a href="contact.html">Contact</a></li>-->
                             </ul>
 
                         </div>
@@ -143,6 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <?if(!empty($_SESSION['USER'])):?>
                         <li><a href="/registration/account" class="login" >Аккаунт</a></li>
                         <li><a href="/registration/deauthorize" class="login" >Выйти из аккаунта</a></li>
+                        <li><a href="/user/favorites/?page=1" class="login" >Избранное</a></li>
                     <?else:?>
                         <li><a href="#" class="login"  data-toggle="modal" data-target="#myModal4">Войти в аккаунт</a></li>
                         <li><a href="#" class="login reg" data-toggle="modal" data-target="#myModal5">Зарегестрироваться</a></li>
@@ -233,7 +196,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--/footer-bottom-->
 <div class="contact-w3ls" id="contact">
     <div class="footer-w3lagile-inner">
-        <h2>Sign up for our <span>Newsletter</span></h2>
+        <!--<h2>Sign up for our <span>Newsletter</span></h2>
         <p class="para">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros eget tellus
             tristique bibendum. Donec rutrum sed sem quis venenatis.</p>
         <div class="footer-contact">
@@ -368,7 +331,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li><a href="contact.html" title="contact">Contact</a></li>
 
             </ul>
-        </div>
+        </div>-->
         <h3 class="text-center follow">Connect <span>Us</span></h3>
         <ul class="social-icons1 agileinfo">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -380,9 +343,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     </div>
 
-</div>
-<div class="w3agile_footer_copy">
-    <p>© 2017 Movies Pro. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
 </div>
 <a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 
@@ -631,6 +591,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         }
                     },
                 });
+            });
+        });
+    </script>
+    <script>
+        var selects  = document.querySelectorAll('.heart-like-button')
+        selects.forEach(function(select) {
+            select.addEventListener("click", () => {
+                if (select.classList.contains("liked")) {
+                    select.classList.remove("liked");
+                    console.log(select.id);
+                    $.ajax({
+                        type: 'post',
+                        url: '/user/removeFromFavorites',
+                        data: {filmId: select.id},
+                        success: function(data) {
+                        },
+                    });
+                } else {
+                    select.classList.add("liked");
+                    //var msg = { filmId: select.id};
+                    var jsontosend =  JSON.stringify({ filmId: select.id});
+                    console.log(JSON.stringify({filmId: select.id}));
+                    $.ajax({
+                        type: 'POST',
+                        url: '/user/addToFavorites',
+                        data: {filmId: select.id},
+                        success: function(data) {
+                            const obj = JSON.parse(data);
+                            var marker = 0;
+                            $.each(obj.errors, function(index, element) {
+                                if (index == 'notUser' && element == 'true')
+                                {
+                                    select.classList.remove("liked");
+                                    alert('Чтобы добавить фильм в избранное войдите в аккаунт или зарегистрируйтесь');
+                                }
+                            });
+                        },
+                    });
+                }
             });
         });
     </script>

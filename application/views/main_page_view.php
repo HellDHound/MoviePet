@@ -53,6 +53,9 @@ echo "</pre>";*/
                                                     <a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a>
                                                 <?endfor;?>
                                             <?endif;?>
+                                        <div id="container">
+                                            <div class="heart-like-button <?=$data['filmsByYear'][0]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByYear'][0]['filmId']?>></div>
+                                        </div>
                                         </p>
                                     </div>
 
@@ -84,6 +87,9 @@ echo "</pre>";*/
                                                         </ul>
                                                     </div>
                                                     <div class="clearfix"></div>
+                                                    <div id="container">
+                                                        <div class="heart-like-button <?=$data['filmsByYear'][$i]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByYear'][$i]['filmId']?>></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ribben">
@@ -127,6 +133,9 @@ echo "</pre>";*/
                                                 <?endfor;?>
                                             <?endif;?>
                                         </p>
+                                        <div id="container">
+                                            <div class="heart-like-button <?=$data['filmsByRatingImdb'][0]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingImdb'][0]['filmId']?>></div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -157,6 +166,9 @@ echo "</pre>";*/
                                                         </ul>
                                                     </div>
                                                     <div class="clearfix"></div>
+                                                    <div id="container">
+                                                        <div class="heart-like-button <?=$data['filmsByRatingImdb'][$i]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingImdb'][$i]['filmId']?>></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ribben">
@@ -200,6 +212,9 @@ echo "</pre>";*/
                                                 <?endfor;?>
                                             <?endif;?>
                                         </p>
+                                        <div id="container">
+                                            <div class="heart-like-button <?=$data['filmsByRatingKp'][0]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingKp'][0]['filmId']?>></div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -230,6 +245,9 @@ echo "</pre>";*/
                                                         </ul>
                                                     </div>
                                                     <div class="clearfix"></div>
+                                                    <div id="container">
+                                                        <div class="heart-like-button <?=$data['filmsByRatingKp'][$i]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingKp'][$i]['filmId']?>></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ribben">
@@ -280,6 +298,9 @@ echo "</pre>";*/
                                         </ul>
                                     </div>
                                     <div class="clearfix"></div>
+                                    <div id="container">
+                                        <div class="heart-like-button <?=$film['favorite'] ? 'liked': ''?>" id=<?=$film['filmId']?>></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="ribben one">
@@ -320,6 +341,9 @@ echo "</pre>";*/
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
+                            <div id="container">
+                                <div class="heart-like-button <?=$data['filmsByRatingKp'][$i]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingKp'][$i]['filmId']?>></div>
+                            </div>
                         </div>
                     </div>
                     <div class="ribben one">
@@ -362,6 +386,9 @@ echo "</pre>";*/
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div id="container">
+                                            <div class="heart-like-button <?=$data['filmsByRatingImdb'][$i]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingImdb'][$i]['filmId']?>></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="ribben">
@@ -397,8 +424,10 @@ echo "</pre>";*/
                                     <?endfor;?>
                                 <?endif;?>
                             </p>
+                            <div id="container">
+                                <div class="heart-like-button <?=$data['filmsByRatingImdb'][0]['favorite'] ? 'liked': ''?>" id=<?=$data['filmsByRatingImdb'][0]['filmId']?>></div>
+                            </div>
                         </div>
-
                     </div>
                     <div class="clearfix"> </div>
                 </div>

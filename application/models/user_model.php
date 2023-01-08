@@ -27,22 +27,16 @@ class userModel extends Model{
             $_SESSION['USER']['email'] = $checkUser['email'];
             $_SESSION['USER']['name'] = $checkUser['username'];
             $_SESSION['USER']['usergroup'] = $checkUser['usergroup'];
-            //echo ('{"errors": ["captchaError": false, "logPassError": false]}');
+            $_SESSION['USER']['id'] = $checkUser['id'];
             $this->json = array(
                 "errors" => array ("captchaError" => 'false',"logPassError" => 'false')
             );
             echo json_encode($this->json, ENT_NOQUOTES);
-            /*echo "<pre>";
-            print_r($_SESSION);
-            echo "</pre>";
-            echo "<script>alert('Вы успешно авторизованы');
-                    location.href='" . $_SERVER['HTTP_ORIGIN'] . "';</script>";*/
         } else{
             $this->json = array(
                 "errors" => array ("captchaError" => 'false',"logPassError" => 'true')
             );
-            echo json_encode($this->json, ENT_NOQUOTES);/*            echo json_encode('<script>alert("Введен неверный логин или пароль")</script>');*/
-/*            echo '<script>alert("Введен неверный логин или пароль")</script>';*/
+            echo json_encode($this->json, ENT_NOQUOTES);
         }
     }
     public function deauthorizeUser(){
@@ -50,16 +44,7 @@ class userModel extends Model{
         echo "<script>location.href='" . $_SERVER['HTTP_REFERER'] . "';</script>";
     }
     public function changeUserPassword($post){
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
-        echo "<pre>";
-        print_r($post);
-        echo "</pre>";
         $checkUser = $this->getUserByEmail($_SESSION['USER']['email'], ['id','email','username','password', 'usergroup']);
-        echo "<pre>";
-        print_r($checkUser);
-        echo "</pre>";
         if (!empty($checkUser) && password_verify($post['password'],$checkUser['password'])){
             $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
             $passwordHash = password_hash($post['newPassword'], PASSWORD_DEFAULT);

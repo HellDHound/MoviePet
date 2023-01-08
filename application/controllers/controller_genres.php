@@ -16,7 +16,9 @@ class Controller_Genres extends Controller
         if ($_GET['genreName'] != 'для взрослых')
         {
             $data['filmsByGenre'] = $this->model->getFilmsByGenre($_GET['genreName'],$_GET['page']);
-            $data['pagesCount'] = round($this->model->countFilmsByGenre($_GET['genreName'])[0]/25,0);
+            $data['userFavoriteFilmsList'] = $this->model->getFilmsByUserId(['userId','filmId']);
+            $data['filmsByGenre'] = $this->model->checkUserFilms($data['userFavoriteFilmsList'], $data['filmsByGenre']);
+            $data['pagesCount'] = ceil($this->model->countFilmsByGenre($_GET['genreName'])[0]/25);
         } else{
             $data['18Marker'] = true;
         }

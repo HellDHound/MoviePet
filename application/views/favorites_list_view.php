@@ -1,15 +1,12 @@
 <!--//header-w3l-->
 
 <!--/content-inner-section-->
-<?if($data['18Marker']):?>
-    <div class="tenor-gif-embed" data-postid="22113367" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/rock-one-eyebrow-raised-rock-staring-the-rock-gif-22113367">Rock One Eyebrow Raised Rock Staring GIF</a>from <a href="https://tenor.com/search/rock+one+eyebrow+raised-gifs">Rock One Eyebrow Raised GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-<?else:?>
     <div class="w3_content_agilleinfo_inner">
         <div class="agile_featured_movies">
             <!--/comedy-movies-->
-            <h3 class="agile_w3_title hor-t"><?=strtoupper($_GET['genreName'])?> </h3>
+            <h3 class="agile_w3_title hor-t">Избранное</h3>
             <div class="wthree_agile-requested-movies tv-movies">
-                <?foreach($data['filmsByGenre'] as $film):?>
+                <?foreach($data['filmList'] as $film):?>
                     <div class="col-md-2 w3l-movie-gride-agile requested-movies">
                         <a href="/genres/detailpage/?filmId=<?=$film['filmId']?>" class="hvr-sweep-to-bottom"><img src="<?=$film['previewUrl']?>" title="Movies Pro" class="img-responsive" alt=" " width="250" height="300">
                             <div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
@@ -20,9 +17,7 @@
                             </div>
                             <div class="mid-2 agile_mid_2_home">
                                 <p><?=$film['year']?></p>
-
                                 <div class="block-stars">
-
                                     <ul class="w3l-ratings">
                                         <?$realRating = round($film['ratingKp']/2 != 0 ? $film['ratingKp']/2 : $film['ratingImdb']/2);
                                         $starCounter = 0;
@@ -54,7 +49,7 @@
                     $urlData = $_GET;
                     $urlData['page'] = $_GET['page'] -1;
                     if ($urlData['page']>0){
-                       $prevPageUrl =  $_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData);
+                        $prevPageUrl =  $_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData);
                     }
                     ?>
                     <?if ($prevPageUrl):?>
@@ -63,8 +58,8 @@
                     <?if ($data['pagesCount'] <= 10):?>
                         <?for ($pageNum = 1; $pageNum <= $data['pagesCount']; $pageNum++):?>
                             <?
-                                $urlData = $_GET;
-                                $urlData['page'] = $pageNum;
+                            $urlData = $_GET;
+                            $urlData['page'] = $pageNum;
                             ?>
                             <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
                         <?endfor;?>
@@ -144,5 +139,4 @@
             </div>
         </div>
     </div>
-<?endif;?>
 <!--//content-inner-section-->
