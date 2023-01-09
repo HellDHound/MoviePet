@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/application/helpers/database_data_helper.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/helpers/database_data_helper.php';
 class FilmsDataModel extends Model
 {
     private $mysqli;

@@ -14,7 +14,7 @@ class Controller_Registration extends Controller
         $this->view = new View();
         $this->captcha = new Captcha_Helper();
         if (($_SERVER['REQUEST_URI'] == '/registration/authorize' && empty($_POST['authorize']))
-            || ($_SERVER['REQUEST_URI'] == '/registration/register' && empty($_POST['authorize']))){
+            || ($_SERVER['REQUEST_URI'] == '/registration/register' && empty($_POST['register']))){
             header('Location: /');
         }
     }

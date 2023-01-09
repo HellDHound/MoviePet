@@ -441,7 +441,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             select.addEventListener("click", () => {
                 if (select.classList.contains("liked")) {
                     select.classList.remove("liked");
-                    console.log(select.id);
                     $.ajax({
                         type: 'post',
                         url: '/user/removeFromFavorites',
@@ -451,16 +450,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     });
                 } else {
                     select.classList.add("liked");
-                    //var msg = { filmId: select.id};
-                    var jsontosend =  JSON.stringify({ filmId: select.id});
-                    console.log(JSON.stringify({filmId: select.id}));
                     $.ajax({
                         type: 'POST',
                         url: '/user/addToFavorites',
                         data: {filmId: select.id},
                         success: function(data) {
                             const obj = JSON.parse(data);
-                            var marker = 0;
                             $.each(obj.errors, function(index, element) {
                                 if (index == 'notUser' && element == 'true')
                                 {

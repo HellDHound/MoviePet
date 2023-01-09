@@ -20,7 +20,6 @@ class Captcha_Helper
                 $error = false;
             }
         }
-
         return $error;
     }
 }
