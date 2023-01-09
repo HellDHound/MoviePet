@@ -7,7 +7,7 @@
     <div class="w3_content_agilleinfo_inner">
         <div class="agile_featured_movies">
             <!--/comedy-movies-->
-            <h3 class="agile_w3_title hor-t"><?=strtoupper($_GET['genreName'])?> </h3>
+            <h3 class="agile_w3_title hor-t"><?=mb_strtoupper($_GET['genreName'])?> </h3>
             <div class="wthree_agile-requested-movies tv-movies">
                 <?foreach($data['filmsByGenre'] as $film):?>
                     <div class="col-md-2 w3l-movie-gride-agile requested-movies">
