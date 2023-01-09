@@ -1,9 +1,9 @@
 <?
-require_once 'C:\OSPanel\domains\Pet-Test\application\core\model.php';
-require_once 'C:\OSPanel\domains\Pet-Test\application\core\view.php';
-require_once 'C:\OSPanel\domains\Pet-Test\application\core\controller.php';
-require_once 'C:\OSPanel\domains\Pet-Test\application\core\route.php';
-include 'C:\OSPanel\domains\Pet-Test\application\models\database_filler_model.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/core/model.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/core/view.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/core/controller.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/core/route.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/application/models/database_filler_model.php';
 
 $fill = new databaseFillerModel();
 

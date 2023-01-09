@@ -1,7 +1,7 @@
 <?
 //session_start();
 use core\View;
-include 'C:\OSPanel\domains\Pet-Test\application\models\films_data_model.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/application\models\films_data_model.php';
 
 class Controller_Main extends Controller
 {

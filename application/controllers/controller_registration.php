@@ -1,8 +1,8 @@
 <?
 use core\View;
-include 'C:\OSPanel\domains\Pet-Test\application\models\user_model.php';
-include 'C:\OSPanel\domains\Pet-Test\application\models\films_data_model.php';
-include 'C:\OSPanel\domains\Pet-Test\application\helpers\captcha_helper.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/application/models/user_model.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/application/models/films_data_model.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/application/helpers/captcha_helper.php';
 
 
 class Controller_Registration extends Controller
