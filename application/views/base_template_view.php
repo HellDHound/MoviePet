@@ -132,12 +132,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <input type="submit" value="LOGIN NOW">
                             </div>
                             <div class="forgot-grid">
-                                <!--<div class="log-check">
-                                    <label class="checkbox"><input type="checkbox" name="authorize[checkbox remember me]">Remember me</label>
-                                </div>-->
-                                <div class="forgot">
-                                    <a href="#" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
-                                </div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="g-recaptcha" id="recaptchaLogin" data-sitekey="6LfN95sjAAAAAPvrwP1yvDLtCP0AumUPheUKJ8Fa"></div>

@@ -86,19 +86,6 @@ CREATE TABLE `films_genres_table` (
                                       CONSTRAINT `films_genres_table_ibfk_2` FOREIGN KEY (`genreId`) REFERENCES `genres_table` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS `user_favorites_table`;
-CREATE TABLE `user_favorites_table` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `filmId` int DEFAULT NULL,
-  `userId` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `filmId` (`filmId`),
-  KEY `userId` (`userId`),
-  CONSTRAINT `user_favorites_table_ibfk_1` FOREIGN KEY (`filmId`) REFERENCES `main_films_table` (`id`),
-  CONSTRAINT `user_favorites_table_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user_movie_table` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 DROP TABLE IF EXISTS `user_movie_table`;
 CREATE TABLE `user_movie_table` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -110,5 +97,16 @@ CREATE TABLE `user_movie_table` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS `user_favorites_table`;
+CREATE TABLE `user_favorites_table` (
+                                        `id` int NOT NULL AUTO_INCREMENT,
+                                        `filmId` int DEFAULT NULL,
+                                        `userId` int DEFAULT NULL,
+                                        PRIMARY KEY (`id`),
+                                        KEY `filmId` (`filmId`),
+                                        KEY `userId` (`userId`),
+                                        CONSTRAINT `user_favorites_table_ibfk_1` FOREIGN KEY (`filmId`) REFERENCES `main_films_table` (`id`),
+                                        CONSTRAINT `user_favorites_table_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user_movie_table` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 2023-01-09 15:42:58

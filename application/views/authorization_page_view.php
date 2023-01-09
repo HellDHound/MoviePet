@@ -16,9 +16,6 @@
                             <div class="log-check">
                                 <label class="checkbox"><input type="checkbox" name="authorize[checkbox remember me]">Remember me</label>
                             </div>
-                            <div class="forgot">
-                                <a href="#" data-toggle="modal" data-target="#myModal2">Forgot Password?</a>
-                            </div>
                             <div class="clearfix"></div>
                         </div>
 

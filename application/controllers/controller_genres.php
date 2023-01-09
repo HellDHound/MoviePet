@@ -17,9 +17,6 @@ class Controller_Genres extends Controller
             $data['filmsByGenre'] = $this->model->getFilmsByGenre($_GET['genreName'],$_GET['page']);
             $data['userFavoriteFilmsList'] = $this->model->getFilmsByUserId(['userId','filmId']);
             $data['filmsByGenre'] = $this->model->checkUserFilms($data['userFavoriteFilmsList'], $data['filmsByGenre']);
-            echo "<pre>";
-            print_r($this->model->countFilmsByGenre($_GET['genreName'])[0]/25);
-            echo "</pre>";
             $data['pagesCount'] = ceil($this->model->countFilmsByGenre($_GET['genreName'])['COUNT(*)']/25);
         } else{
             $data['18Marker'] = true;
