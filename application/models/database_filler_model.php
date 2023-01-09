@@ -1,9 +1,15 @@
 <?
+include $_SERVER['DOCUMENT_ROOT'] . '/application/helpers/database_data_helper.php';
 
 class databaseFillerModel extends Model
 {
+    private $mysqli;
+
     function __construct()
     {
+        $databaseData = new Database_Data_Helper();
+        $databaseData = (array)$databaseData;
+        $this->mysqli = new mysqli($databaseData['hostName'], $databaseData['userName'], $databaseData['password'], $databaseData['databaseName']);
         set_time_limit(600);
         $dateLastDatabaseUpdate = $this->filmGetDatabaseLastUpdateDate();
         $now = time();
@@ -47,7 +53,6 @@ class databaseFillerModel extends Model
     }
 
     private function filmListUploader($filmList, $filmDatabaseData, $filmGenresDatabaseData){
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         foreach ($filmList as $doc){
             $time = strtotime($doc['updatedAt'] . ' UTC');
             $updatedAt = date("Y-m-d", $time);
@@ -57,13 +62,13 @@ class databaseFillerModel extends Model
                     empty($doc['poster']['previewUrl'] ? : $doc['poster']['previewUrl'] = 'https://st.kp.yandex.net/images/film_big/');
                     $insertQuery = "
                     UPDATE main_films_table
-                    SET id = '{$doc['id']}', name = '{$mysqli->real_escape_string($doc['name'])}', updatedAt = '{$updatedAt}', posterUrl = '{$doc['poster']['url']}', previewUrl = '{$doc['poster']['previewUrl']}',
-                        ratingKp = '{$doc['rating']['kp']}', ratingImdb = '{$doc['rating']['imdb']}', type = '{$doc['type']}', description = '{$mysqli->real_escape_string($doc['description'])}',
+                    SET id = '{$doc['id']}', name = '{$this->mysqli->real_escape_string($doc['name'])}', updatedAt = '{$updatedAt}', posterUrl = '{$doc['poster']['url']}', previewUrl = '{$doc['poster']['previewUrl']}',
+                        ratingKp = '{$doc['rating']['kp']}', ratingImdb = '{$doc['rating']['imdb']}', type = '{$doc['type']}', description = '{$this->mysqli->real_escape_string($doc['description'])}',
                         year = '{$doc['year']}'                         
                     WHERE id = '{$doc['id']}'";
-                    $resultQuery = $mysqli->query($insertQuery);
+                    $resultQuery = $this->mysqli->query($insertQuery);
                     $deleteGenresByFilmQuery ="DELETE FROM films_genres_table WHERE filmId = '{$doc['id']}'";
-                    $resultDeleteQuery = $mysqli->query($deleteGenresByFilmQuery);
+                    $resultDeleteQuery = $this->mysqli->query($deleteGenresByFilmQuery);
 
                     foreach ($doc['genres'] as $genre)
                     {
@@ -73,7 +78,7 @@ class databaseFillerModel extends Model
                     (filmId, genreId)
                     VALUES 
                     ('{$doc['id']}', '{$genreId}')";
-                        $resultGenresQuery = $mysqli->query($insertFilmGenresQuery);
+                        $resultGenresQuery = $this->mysqli->query($insertFilmGenresQuery);
                     }
                 }
             }else{
@@ -81,9 +86,9 @@ class databaseFillerModel extends Model
                 INSERT INTO main_films_table
                 (id, name, updatedAt, posterUrl, previewUrl, ratingKp, ratingImdb, type, description, year)
                 VALUES 
-                ('{$doc['id']}', '{$mysqli->real_escape_string($doc['name'])}', '{$updatedAt}', '{$doc['poster']['url']}', '{$doc['poster']['previewUrl']}',
-                '{$doc['rating']['kp']}', '{$doc['rating']['imdb']}', '{$doc['type']}', '{$mysqli->real_escape_string($doc['description'])}', '{$doc['year']}')";
-                $resultQuery = $mysqli->query($insertFilmQuery);
+                ('{$doc['id']}', '{$this->mysqli->real_escape_string($doc['name'])}', '{$updatedAt}', '{$doc['poster']['url']}', '{$doc['poster']['previewUrl']}',
+                '{$doc['rating']['kp']}', '{$doc['rating']['imdb']}', '{$doc['type']}', '{$this->mysqli->real_escape_string($doc['description'])}', '{$doc['year']}')";
+                $resultQuery = $this->mysqli->query($insertFilmQuery);
                 if ($resultQuery === false) {
                     echo "<pre>";
                     print_r($insertFilmQuery);
@@ -98,7 +103,7 @@ class databaseFillerModel extends Model
                     (filmId, genreId)
                     VALUES 
                     ('{$doc['id']}', '{$genreId}')";
-                    $resultGenresQuery = $mysqli->query($insertFilmGenresQuery);
+                    $resultGenresQuery = $this->mysqli->query($insertFilmGenresQuery);
                     if ($resultGenresQuery === false) {
                         echo "<pre>";
                         print_r($insertFilmGenresQuery);
@@ -111,9 +116,8 @@ class databaseFillerModel extends Model
         $this->filmUpdateDatabaseLastUpdateDate();
     }
     private function filmListGetFromDatabase(){
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         $querry = "SELECT id, updatedAt FROM main_films_table";
-        $resultQuery = $mysqli->query($querry);
+        $resultQuery = $this->mysqli->query($querry);
         $returnArray = [];
         while ($row = mysqli_fetch_assoc($resultQuery)) {
             $returnArray[$row['id']] = $row['updatedAt'];
@@ -121,17 +125,15 @@ class databaseFillerModel extends Model
         return $returnArray;
     }
     private function filmGetDatabaseLastUpdateDate(){
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         $querry = "SELECT databaseLastUpdateDate FROM film_database_core_markers  WHERE ID = 1";
-        $resultQuery = $mysqli->query($querry);
+        $resultQuery = $this->mysqli->query($querry);
         while ($row = mysqli_fetch_assoc($resultQuery)) {
             return $row['databaseLastUpdateDate'];
         }
     }
     private function genresListGetFromDatabase(){
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         $querry = "SELECT * FROM genres_table";
-        $resultQuery = $mysqli->query($querry);
+        $resultQuery = $this->mysqli->query($querry);
         $genresList = [];
         while ($row = mysqli_fetch_assoc($resultQuery)) {
             $genresList[$row['id']] = $row['genre'];
@@ -140,9 +142,8 @@ class databaseFillerModel extends Model
     }
     private function filmUpdateDatabaseLastUpdateDate(){
         $todayDate = date("Y-m-d");
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         $querry = "UPDATE film_database_core_markers SET databaseLastUpdateDate = '{$todayDate}'  WHERE ID = 1";
-        $resultQuery = $mysqli->query($querry);
+        $resultQuery = $this->mysqli->query($querry);
     }
 }
 

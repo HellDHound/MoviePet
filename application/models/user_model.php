@@ -1,7 +1,15 @@
 <?
-class userModel extends Model{
+include $_SERVER['DOCUMENT_ROOT'] . '/application/helpers/database_data_helper.php';
+class userModel extends Model
+{
+    private $mysqli;
+    public function __construct()
+    {
+        $databaseData = new Database_Data_Helper();
+        $databaseData = (array)$databaseData;
+        $this->mysqli = new mysqli($databaseData['hostName'], $databaseData['userName'], $databaseData['password'], $databaseData['databaseName']);
+    }
     public function createUser($post){
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         $passwordHash = password_hash($post['password'], PASSWORD_DEFAULT);
         $checkUser = $this->getUserByEmail($post['email'], ['id','email','username']);
         if (empty($checkUser)){
@@ -10,7 +18,7 @@ class userModel extends Model{
                 (username, email, password)
                 VALUES 
                 ('{$post['name']}','{$post['email']}','{$passwordHash}')";
-            $resultQuery = $mysqli->query($insertQuery);
+            $resultQuery = $this->mysqli->query($insertQuery);
             $this->json = array(
                 "errors" => array ("captchaError" => 'false',"logPassError" => 'false',"emailError" => 'false')
             );
@@ -46,10 +54,9 @@ class userModel extends Model{
     public function changeUserPassword($post){
         $checkUser = $this->getUserByEmail($_SESSION['USER']['email'], ['id','email','username','password', 'usergroup']);
         if (!empty($checkUser) && password_verify($post['password'],$checkUser['password'])){
-            $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
             $passwordHash = password_hash($post['newPassword'], PASSWORD_DEFAULT);
             $insertQuery = "UPDATE user_movie_table SET password = '{$passwordHash}' WHERE email = '{$_SESSION['USER']['email']}'";
-            $resultQuery = $mysqli->query($insertQuery);
+            $resultQuery = $this->mysqli->query($insertQuery);
             echo "<script>alert('Ваш пароль успешно изменен');
                     location.href='" . $_SERVER['HTTP_ORIGIN'] . "';</script>";
         } else{
@@ -62,9 +69,8 @@ class userModel extends Model{
         } else{
             $fieldsArray = $selectedFields;
         }
-        $mysqli = new mysqli("yii2-advanced-2", "root", "", "mysql");
         $insertQuery = "SELECT $fieldsArray FROM user_movie_table WHERE email = '{$email}'";
-        $resultQuery = $mysqli->query($insertQuery);
+        $resultQuery = $this->mysqli->query($insertQuery);
         $returnArray = [];
         while ($row = mysqli_fetch_assoc($resultQuery)) {
             $returnArray = $row;
