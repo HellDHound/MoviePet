@@ -1,5 +1,4 @@
 <?
-//include 'view.php';
 class Controller {
 
     public $model;

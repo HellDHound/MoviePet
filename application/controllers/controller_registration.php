@@ -66,7 +66,8 @@ class Controller_Registration extends Controller
         if ($_POST['change']){
             $this->model->changeUserPassword($_POST['change']);
         }
-        $data['user'] = $_SESSION['user'];
-        $this->view->generate('account_page_view.php', 'base_template_view.php', $data);
+        else{
+            header('Location: /');
+        }
     }
 }

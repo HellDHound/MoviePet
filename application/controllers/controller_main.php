@@ -1,5 +1,4 @@
 <?
-//session_start();
 use core\View;
 include $_SERVER['DOCUMENT_ROOT'] . '/application\models\films_data_model.php';
 

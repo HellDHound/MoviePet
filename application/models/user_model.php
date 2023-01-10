@@ -60,7 +60,8 @@ class userModel extends Model
             echo "<script>alert('Ваш пароль успешно изменен');
                     location.href='" . $_SERVER['HTTP_ORIGIN'] . "';</script>";
         } else{
-            echo '<script>alert("Старый пароль указан неверно")</script>';
+            echo "<script>alert('Старый пароль указан неверно');
+                    location.href='/registration/account';</script>";
         }
     }
     public function getUserByEmail($email, $selectedFields = 'id'){
