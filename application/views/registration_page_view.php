@@ -14,7 +14,7 @@
                         <input type="password" name="register[confirm password]" id="confirmPasswordPage" placeholder="Confirm Password" required="" >
                         <div class="signin-rit">
 														<span class="agree-checkbox">
-														<label class="checkbox"><input type="checkbox" name="register[checkbox_agreement]" required="">I agree to your <a class="w3layouts-t" href="#" target="_blank">Terms of Use</a> and <a class="w3layouts-t" href="#" target="_blank">Privacy Policy</a></label>
+														<label class="checkbox"><input type="checkbox" name="register[checkbox_agreement]" required="">I agree to your Terms of Use and Privacy Policy</label>
 													</span>
                         </div>
                         <div class="tp">
