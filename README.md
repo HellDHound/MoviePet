@@ -12,11 +12,11 @@
 Ключи для работы google recaptcha сгенерированы на домен moviepet.
 
 Конфиг, на котором все запускалось в Open Server: 
-  HTTP - Apache_2.4-PHP_7.2-7.4
-  PHP - 7.2
-  MySQL/MariaDB - MySQL-8.0-Win10
-  PostgreSQL - не использовать
-  MongoDB - не использовать
-  Memcached - не использовать
-  Redis - не использовать
+  HTTP - Apache_2.4-PHP_7.2-7.4 |
+  PHP - 7.2 |
+  MySQL/MariaDB - MySQL-8.0-Win10 |
+  PostgreSQL - не использовать |
+  MongoDB - не использовать |
+  Memcached - не использовать |
+  Redis - не использовать |
   DNS - не использовать
