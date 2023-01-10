@@ -122,7 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="forgot-grid">
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="g-recaptcha" id="recaptchaLogin" data-sitekey="6LfN95sjAAAAAPvrwP1yvDLtCP0AumUPheUKJ8Fa"></div>
+                            <div class="g-recaptcha" id="recaptchaLogin" data-sitekey="6Le1segjAAAAAM_1mmJC1VXcoQ1-wyITGdxZcJd2"></div>
                         </form>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="tp">
                                 <input type="submit" id="submit" value="REGISTER NOW">
                             </div>
-                            <div class="g-recaptcha" id="recaptchaRegister" data-sitekey="6LfN95sjAAAAAPvrwP1yvDLtCP0AumUPheUKJ8Fa"></div>
+                            <div class="g-recaptcha" id="recaptchaRegister" data-sitekey="6Le1segjAAAAAM_1mmJC1VXcoQ1-wyITGdxZcJd2"></div>
                         </form>
                     </div>
                 </div>

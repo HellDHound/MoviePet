@@ -5,7 +5,7 @@ class Captcha_Helper
 {
     function checkCaptcha($post){
         $error = true;
-        $secret = '6LfN95sjAAAAAEAWF_4eYmtQD3RP5H3yfP3MSBBq';
+        $secret = '6Le1segjAAAAAPQAyuHA8PclRi04vzPB8lO8KqYS';
 
         if (!empty($post['g-recaptcha-response'])) {
             $curl = curl_init('https://www.google.com/recaptcha/api/siteverify');
