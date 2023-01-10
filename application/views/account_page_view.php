@@ -11,7 +11,7 @@
                         <input type="password" name="change[confirmPassword]" id="confirmPasswordPage" placeholder="Confirm Old Password" required="" >
                         <input type="password" name="change[newPassword]" id="confirmNewPasswordPage" placeholder="New Password" required="" >
                         <div class="tp">
-                            <input type="submit" value="Сменить пароль">
+                            <input type="submit" id="submitPageAccount" value="Сменить пароль">
                         </div>
                     </form>
                 </div>

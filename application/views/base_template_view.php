@@ -336,6 +336,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
         });
     </script>
+    <script>
+        var inputConfirm = document.getElementById('confirmPasswordPage');
+        var inputMainPassword = document.getElementById('passwordPage');
+
+        inputConfirm.addEventListener('input', function()
+        {
+            if (inputConfirm.value != inputMainPassword.value){
+                inputConfirm.style.outline = "thick solid #ff0000";
+                document.getElementById('submitPageAccount').disabled = true;
+            }else{
+                inputConfirm.style.outline = "none";
+                document.getElementById('submitPageAccount').disabled = false;
+            }
+        });
+    </script>
 <script src="/js/bootstrap.js"></script>
     <script>
         $(document).ready(function() {

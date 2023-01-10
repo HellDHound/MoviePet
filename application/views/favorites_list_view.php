@@ -8,9 +8,7 @@
             <div class="wthree_agile-requested-movies tv-movies">
                 <?foreach($data['filmList'] as $film):?>
                     <div class="col-md-2 w3l-movie-gride-agile requested-movies">
-                        <a href="/genres/detailpage/?filmId=<?=$film['filmId']?>" class="hvr-sweep-to-bottom"><img src="<?=$film['previewUrl']?>" title="Movies Pro" class="img-responsive" alt=" " width="250" height="300">
-                            <div class="w3l-action-icon"><i class="fa fa-play-circle-o" aria-hidden="true"></i></div>
-                        </a>
+                        <a href="/genres/detailpage/?filmId=<?=$film['filmId']?>" class="hvr-sweep-to-bottom"><img src="<?=$film['previewUrl']?>" title="Movies Pro" class="img-responsive" alt=" " width="250" height="300"></a>
                         <div class="mid-1 agileits_w3layouts_mid_1_home">
                             <div class="w3l-movie-text">
                                 <h6><a href="/genres/detailpage/?filmId=<?=$film['filmId']?>"><?=mb_strimwidth($film['name'], 0, 20, "...")?></a></h6>
@@ -22,11 +20,11 @@
                                         <?$realRating = round($film['ratingKp']/2 != 0 ? $film['ratingKp']/2 : $film['ratingImdb']/2);
                                         $starCounter = 0;
                                         for($starCounter; $starCounter < $realRating;$starCounter++):?>
-                                            <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                            <li><a><i class="fa fa-star" aria-hidden="true"></i></a></li>
                                         <?endfor;?>
                                         <?if($starCounter<5):?>
                                             <?for($starCounter; $starCounter < 5;$starCounter++):?>
-                                                <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                <li><a><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
                                             <?endfor;?>
                                         <?endif;?>
                                     </ul>
