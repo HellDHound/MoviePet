@@ -27,7 +27,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--//web-fonts-->
 </head>
     <body>
-        <?if(count($data['posters']) >= 4):?>
+        <?if(isset($data['posters']) and count($data['posters']) >= 4):?>
         <div id="demo-1" data-zs-src='["<?=$data['posters'][0] ? $data['posters'][0] : ''?>", "<?=$data['posters'][1] ? $data['posters'][1] : ''?>", "<?=$data['posters'][2] ? $data['posters'][2] : ''?>","<?=$data['posters'][3] ? $data['posters'][3] : ''?>"]' data-zs-overlay="dots">
         <?else:?>
         <div id="demo-1" data-zs-src='["<?=$data['posters'][0] ? $data['posters'][0] : ''?>"]' data-zs-overlay="dots">
@@ -341,16 +341,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
     </script>
     <script>
-        var inputConfirm = document.getElementById('confirmPasswordPage');
-        var inputMainPassword = document.getElementById('passwordPage');
+        var inputConfirmPage = document.getElementById('confirmPasswordPage');
+        var inputMainPasswordPage = document.getElementById('passwordPage');
 
-        inputConfirm.addEventListener('input', function()
+        inputConfirmPage.addEventListener('input', function()
         {
-            if (inputConfirm.value != inputMainPassword.value){
-                inputConfirm.style.outline = "thick solid #ff0000";
+            if (inputConfirmPage.value != inputMainPasswordPage.value){
+                inputConfirmPage.style.outline = "thick solid #ff0000";
                 document.getElementById('submitPageAccount').disabled = true;
             }else{
-                inputConfirm.style.outline = "none";
+                inputConfirmPage.style.outline = "none";
                 document.getElementById('submitPageAccount').disabled = false;
             }
         });

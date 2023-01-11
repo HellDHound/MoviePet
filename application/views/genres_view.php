@@ -64,7 +64,11 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                             ?>
+                            <?if ($_GET['page'] == $pageNum):?>
+                                <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                            <?else:?>
                             <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                            <?endif;?>
                         <?endfor;?>
                         <?$urlData = $_GET;
                         $urlData['page'] = $_GET['page']+1;
@@ -78,15 +82,22 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
-                            <?endfor;?>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>                            <?endfor;?>
                             <li><a>.   .   .</a></li>
                             <?for ($pageNum = $data['pagesCount']-5; $pageNum <= $data['pagesCount']; $pageNum++):?>
                                 <?
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>
                             <?endfor;?>
                         <?elseif($_GET['page'] <= $data['pagesCount'] && $_GET['page'] < $data['pagesCount']-6):?>
                             <?for ($pageNum = 1; $pageNum <= 3; $pageNum++):?>
@@ -94,7 +105,11 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>
                             <?endfor;?>
                             <li><a>.   .   .</a></li>
                             <?for ($pageNum = $_GET['page']-1; $pageNum <= $_GET['page']+1; $pageNum++):?>
@@ -102,7 +117,11 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>
                             <?endfor;?>
                             <li><a>.   .   .</a></li>
                             <?for ($pageNum = $data['pagesCount']-3; $pageNum < $data['pagesCount']; $pageNum++):?>
@@ -110,7 +129,11 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>
                             <?endfor;?>
                         <?else:?>
                             <?for ($pageNum = 1; $pageNum <= 3; $pageNum++):?>
@@ -118,7 +141,11 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>
                             <?endfor;?>
                             <li><a>.   .   .</a></li>
                             <?for ($pageNum = $_GET['page']-1; $pageNum <= $data['pagesCount']; $pageNum++):?>
@@ -126,7 +153,11 @@
                                 $urlData = $_GET;
                                 $urlData['page'] = $pageNum;
                                 ?>
-                                <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?if ($_GET['page'] == $pageNum):?>
+                                    <li><a id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?else:?>
+                                    <li><a href="<?=$_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData)?>" id="<?= $_GET['page'] == $pageNum ? 'selected': ''?>"><?=$pageNum?></a></li>
+                                <?endif;?>
                             <?endfor;?>
                         <?endif;?>
                     <?endif;?>
