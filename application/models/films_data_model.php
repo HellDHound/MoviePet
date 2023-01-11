@@ -19,7 +19,15 @@ class FilmsDataModel extends Model
         }
         return $genresList;
     }
-
+    public function genresListGetFromDatabaseByFilms(){
+        $querry = "SELECT * FROM genres_table WHERE NOT genreFilms = 0";
+        $resultQuery = $this->mysqli->query($querry);
+        $genresList = [];
+        while ($row = mysqli_fetch_assoc($resultQuery)) {
+            $genresList[] = $row;
+        }
+        return $genresList;
+    }
     public function getFilmsByGenre($genre,$page = 1, $filmsByPage = 25)
     {
         $filmTakerMarker = $filmsByPage * ($page-1);
@@ -85,31 +93,16 @@ class FilmsDataModel extends Model
         $resultQuery = $this->mysqli->query($removeFilmQuery);
     }
 
-    public function countFilmsByGenre($genre)
-    {
-        $querry = "
-            SELECT COUNT(*)
-            FROM main_films_table as mf inner join films_genres_table as fg on mf.id = fg.filmId inner join genres_table as gt on gt.id = fg.genreId 
-            WHERE gt.genre = '{$genre}' 
-            AND (NOT ratingKp = 0 OR NOT ratingImdb = 0)";
-        $resultQuery = $this->mysqli->query($querry);
-        $quantity = 0;
-        while ($row = mysqli_fetch_assoc($resultQuery)) {
-            $quantity = $row;
-        }
-        return $quantity;
-    }
-
     public function countUserFavorites()
     {
         $querry = "
-            SELECT COUNT(*) 
+            SELECT COUNT(*) as count
             FROM user_favorites_table
             WHERE userId= '{$_SESSION['USER']['id']}'";
         $resultQuery = $this->mysqli->query($querry);
         $quantity = 0;
         while ($row = mysqli_fetch_assoc($resultQuery)) {
-            $quantity = $row['COUNT(*)'];
+            $quantity = $row['count'];
         }
 
         return $quantity;

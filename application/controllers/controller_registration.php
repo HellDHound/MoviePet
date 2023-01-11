@@ -47,13 +47,13 @@ class Controller_Registration extends Controller
     }
     function action_deauthorize()
     {
-        $data['genres']  = $this->films->genresListGetFromDatabase();
+        $data['genres']  = $this->films->genresListGetFromDatabaseByFilms();
         $this->model->deauthorizeUser();
     }
     function action_account()
     {
         if ($_SESSION['USER']){
-            $data['genres']  = $this->films->genresListGetFromDatabase();
+            $data['genres']  = $this->films->genresListGetFromDatabaseByFilms();
             $data['user'] = $_SESSION['USER'];
             $this->view->generate('account_page_view.php', 'base_template_view.php', $data);
         } else{
@@ -62,7 +62,7 @@ class Controller_Registration extends Controller
     }
     function action_change_password()
     {
-        $data['genres']  = $this->films->genresListGetFromDatabase();
+        $data['genres']  = $this->films->genresListGetFromDatabaseByFilms();
         if ($_POST['change']){
             $this->model->changeUserPassword($_POST['change']);
         }

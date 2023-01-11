@@ -27,7 +27,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--//web-fonts-->
 </head>
     <body>
-    <div id="demo-1" data-zs-src='["<?=$data['filmsByYear'][0]['posterUrl'] ? $data['filmsByYear'][0]['posterUrl'] : $data['filmsByGenre'][0]['posterUrl']?>", "<?=$data['filmsByYear'][1]['posterUrl'] ? $data['filmsByYear'][1]['posterUrl'] : $data['filmsByGenre'][1]['posterUrl']?>", "<?=$data['filmsByYear'][2]['posterUrl'] ? $data['filmsByYear'][2]['posterUrl'] : $data['filmsByGenre'][2]['posterUrl']?>","<?=$data['filmsByYear'][3]['posterUrl'] ? $data['filmsByYear'][3]['posterUrl'] : $data['filmsByGenre'][3]['posterUrl']?>"]' data-zs-overlay="dots">
+        <?if(count($data['posters']) >= 4):?>
+        <div id="demo-1" data-zs-src='["<?=$data['posters'][0] ? $data['posters'][0] : ''?>", "<?=$data['posters'][1] ? $data['posters'][1] : ''?>", "<?=$data['posters'][2] ? $data['posters'][2] : ''?>","<?=$data['posters'][3] ? $data['posters'][3] : ''?>"]' data-zs-overlay="dots">
+        <?else:?>
+        <div id="demo-1" data-zs-src='["<?=$data['posters'][0] ? $data['posters'][0] : ''?>"]' data-zs-overlay="dots">
+        <?endif;?>
         <div class="demo-inner-content">
             <!--/header-w3l-->
             <div class="header-w3-agileits" id="home">
@@ -54,7 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             foreach ($data['genres'] as $id=>$genre):?>
                                                 <div class="col-sm-4">
                                                     <ul class="multi-column-dropdown">
-                                                        <li><a href="/genres/genrepage/?genreName=<?=$genre?>&page=1"><?=$genre?></a></li>
+                                                        <li><a href="/genres/genrepage/?genreName=<?=$genre['genre']?>&page=1"><?=$genre['genre']?></a></li>
                                                     </ul>
                                                 </div>
                                             <?endforeach;?>

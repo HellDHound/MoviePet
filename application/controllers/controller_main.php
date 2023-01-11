@@ -11,10 +11,11 @@ class Controller_Main extends Controller
     }
     function action_index()
     {
+        $data['posters'] = [];
         if ($_SESSION['USER'])
         {
             $userFavoriteList = $this->model->getFilmsByUserId(['userId','filmId']);
-            $data['genres']  = $this->model->genresListGetFromDatabase();
+            $data['genres']  = $this->model->genresListGetFromDatabaseByFilms();
             $data['filmsByRatingKp'] = $this->model->getFilmsByRatingKp(100, 'desc');
             $data['filmsByRatingKp'] = $this->model->checkUserFilms($userFavoriteList, $data['filmsByRatingKp']);
             $data['filmsByRatingImdb'] = $this->model->getFilmsByRatingImdb(100, 'desc');
@@ -22,12 +23,18 @@ class Controller_Main extends Controller
             $data['filmsByYear'] = $this->model->getFilmsByYear(100, 'desc');
             $data['filmsByYear'] = $this->model->checkUserFilms($userFavoriteList, $data['filmsByYear']);
         } else{
-            $data['genres']  = $this->model->genresListGetFromDatabase();
+            $data['genres']  = $this->model->genresListGetFromDatabaseByFilms();
             $data['filmsByRatingKp'] = $this->model->getFilmsByRatingKp(100, 'desc');
             $data['filmsByRatingImdb'] = $this->model->getFilmsByRatingImdb(100, 'desc');
             $data['filmsByYear'] = $this->model->getFilmsByYear(100, 'desc');
         }
-
+        foreach ($data['filmsByYear'] as $film){
+            if (count($data['posters']) < 4){
+                $data['posters'][] = $film['posterUrl'];
+            } else {
+                break;
+            }
+        }
 
         $this->view->generate('main_page_view.php', 'base_template_view.php', $data);
 

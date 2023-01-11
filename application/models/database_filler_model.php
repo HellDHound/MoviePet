@@ -1,5 +1,6 @@
 <?
 require_once $_SERVER['DOCUMENT_ROOT'] . '/application/helpers/database_data_helper.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/application/models/films_data_model.php';
 
 class databaseFillerModel extends Model
 {
@@ -32,6 +33,7 @@ class databaseFillerModel extends Model
                 }
             }
             $this->filmListUploader($docsFinalList, $filmDatabaseData, $filmGenresDatabaseData);
+            $this->genreFilmsUpdater();
         }
         set_time_limit(60);
 
@@ -144,6 +146,36 @@ class databaseFillerModel extends Model
         $todayDate = date("Y-m-d");
         $querry = "UPDATE film_database_core_markers SET databaseLastUpdateDate = '{$todayDate}'  WHERE ID = 1";
         $resultQuery = $this->mysqli->query($querry);
+    }
+    public function genreFilmsUpdater(){
+        $film  = new FilmsDataModel();
+        $genresList = $film->genresListGetFromDatabase();
+        foreach ($genresList as $genre)
+        {
+            $querry = "
+            SELECT COUNT(*) as count
+            FROM main_films_table as mf inner join films_genres_table as fg on mf.id = fg.filmId inner join genres_table as gt on gt.id = fg.genreId 
+            WHERE gt.genre = '{$genre}' 
+            AND (NOT ratingKp = 0 OR NOT ratingImdb = 0)";
+            $resultQuery = $this->mysqli->query($querry);
+            $quantity = 0;
+            while ($row = mysqli_fetch_assoc($resultQuery)) {
+                $quantity = $row;
+            }
+            if ($quantity['count']>0){
+                $querry = "
+                    UPDATE genres_table
+                    SET genreFilms = '{$quantity['count']}'
+                    WHERE genre = '{$genre}'";
+                $resultQuery = $this->mysqli->query($querry);
+            } else{
+                $querry = "
+                    UPDATE genres_table
+                    SET genreFilms = 0
+                    WHERE genre = '{$genre}'";
+                $resultQuery = $this->mysqli->query($querry);
+            }
+        }
     }
 }
 
