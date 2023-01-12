@@ -162,7 +162,7 @@
                         $nextPageUrl =  $_SERVER['REDIRECT_URL'] .'?'. http_build_query($urlData);
                     }?>
                     <?if ($nextPageUrl):?>
-                        <li><a class="last" href="<?=$nextPageUrl?>">Next1</a></li>
+                        <li><a class="last" href="<?=$nextPageUrl?>">Next</a></li>
                     <?endif;?>
                 </ul>
             </div>
